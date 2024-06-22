@@ -6,12 +6,12 @@ $setting = App\Models\Utility::getAdminPaymentSettings();
   // dd($setting);
   $meta_setting = App\Models\Utility::getAdminPaymentSettings();
            $meta_images = \App\Models\Utility::get_file('uploads/logo/');
-  
+
 if ($setting['color']) {
     $color = $setting['color'];
 }
 else{
-  $color = 'theme-3';  
+  $color = 'theme-3';
 }
 $dark_mode = $setting['cust_darklayout'];
 
@@ -26,7 +26,7 @@ $dark_mode = $setting['cust_darklayout'];
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{$setting['site_rtl'] == 'on'?'rtl':''}}">
   <head>
 
-    <title>Taskly</title>
+    <title>PMS</title>
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 11]>
@@ -74,8 +74,8 @@ $dark_mode = $setting['cust_darklayout'];
     <!-- vendor css -->
     @if($setting['site_rtl']=='on')
         <link rel="stylesheet" href="{{ asset('assets/css/style-rtl.css')}}" id="main-style-link">
-       
-    @endif     
+
+    @endif
    @if($setting['cust_darklayout']=='on')
     <link rel="stylesheet" href="{{ asset('assets/css/style-dark.css')}}">
    @else
@@ -89,7 +89,7 @@ $dark_mode = $setting['cust_darklayout'];
   </head>
 
   <body class="{{ $color }}">
-    
+
     <!-- [ Nav ] start -->
     <nav class="navbar navbar-expand-md navbar-dark default">
       <div class="container">
@@ -149,7 +149,7 @@ $dark_mode = $setting['cust_darklayout'];
               class="text-white mb-sm-4 wow animate__fadeInLeft"
               data-wow-delay="0.2s"
             >
-             Taskly
+             PMS
             </h1>
             <h2
               class="text-white mb-sm-4 wow animate__fadeInLeft"
@@ -165,7 +165,7 @@ $dark_mode = $setting['cust_darklayout'];
               <a href="{{ route('login') }}" class="btn btn-light me-2"
                 ><i class="far fa-eye me-2"></i>Live Demo</a
               >
-              <a href="https://codecanyon.net/item/taskly-project-management-tool/24264721" class="btn btn-outline-light" target="_blank"
+              <a href="" class="btn btn-outline-light" target="_blank"
                 ><i class="fas fa-shopping-cart me-2"></i>Buy now</a
               >
             </div>
@@ -193,7 +193,7 @@ $dark_mode = $setting['cust_darklayout'];
         <div class="row align-items-center justify-content-center mb-5  mobile-screen">
           <div class="col-auto">
             <div class="wow animate__fadeInRight mobile-widget" data-wow-delay="0.2s">
-              
+
               <img
                 src="{{$logo.$company_logo}}"
                 alt=""
@@ -257,7 +257,7 @@ $dark_mode = $setting['cust_darklayout'];
               class="mb-sm-4 f-w-600 wow animate__fadeInLeft"
               data-wow-delay="0.2s"
             >
-              Taskly
+              PMS
             </h1>
             <h2 class="mb-sm-4 wow animate__fadeInLeft" data-wow-delay="0.4s">
               Project Management<br/>Tool
@@ -295,7 +295,7 @@ $dark_mode = $setting['cust_darklayout'];
               class="mb-sm-4 f-w-600 wow animate__fadeInRight"
               data-wow-delay="0.2s"
             >
-              Taskly
+              PMS
             </h1>
             <h2 class="mb-sm-4 wow animate__fadeInRight" data-wow-delay="0.4s">
               Project Management<br/>Tool
@@ -361,7 +361,7 @@ $dark_mode = $setting['cust_darklayout'];
                 animation-delay: 0.2s;
                 animation-name: fadeInUp;
               "
-            > 
+            >
               <div class="card-body">
                 <div class="theme-avtar bg-success">
                   <i class="ti ti-user-plus"></i>
@@ -440,7 +440,7 @@ $dark_mode = $setting['cust_darklayout'];
               class="mb-sm-4 f-w-600 wow animate__fadeInLeft"
               data-wow-delay="0.2s"
             >
-              Taskly
+              PMS
             </h1>
             <h2 class="mb-sm-4 wow animate__fadeInLeft" data-wow-delay="0.4s">
               Project Management<br/>Tool
@@ -478,7 +478,7 @@ $dark_mode = $setting['cust_darklayout'];
               class="mb-sm-4 f-w-600 wow animate__fadeInRight"
               data-wow-delay="0.2s"
             >
-              Taskly
+              PMS
             </h1>
             <h2 class="mb-sm-4 wow animate__fadeInRight" data-wow-delay="0.4s">
               Project Management<br/>Tool
@@ -497,7 +497,7 @@ $dark_mode = $setting['cust_darklayout'];
       </div>
     </section>
 
-{{-- @if(count($plans)>0) 
+{{-- @if(count($plans)>0)
         <section id="price" class="price-section">
           <div class="container">
             <div class="row justify-content-center">
@@ -513,7 +513,7 @@ $dark_mode = $setting['cust_darklayout'];
             </div>
             <div class="row justify-content-center">
                 @foreach($plans as $key => $plan)
-                @php 
+                @php
                     $price_class = '';
                     $price_badge = '';
                     $price_btn = '';
@@ -528,7 +528,7 @@ $dark_mode = $setting['cust_darklayout'];
                     }
                 @endphp
               <div class="col-lg-4 col-md-6">
-                <div 
+                <div
                   class="card price-card {{$price_class}} wow animate__fadeInUp"
                   data-wow-delay="0.2s"
                   style="
@@ -539,10 +539,10 @@ $dark_mode = $setting['cust_darklayout'];
                 >
                   <div class="card-body">
                     <span class="price-badge {{$price_badge}}">{{ $plan->name }}</span>
-                
+
                 <span class="mb-4 f-w-600 p-price">{{(env('CURRENCY_SYMBOL')) ? env('CURRENCY_SYMBOL') : '$'}}{{$plan->monthly_price}} <small class="text-sm">/{{ __('Monthly Price') }}</small></span><br>
                  <span class="mb-4 f-w-600 p-price">{{(env('CURRENCY_SYMBOL')) ? env('CURRENCY_SYMBOL') : '$'}}{{$plan->annual_price}} <small class="text-sm">/{{ __('Annual Price') }}</small></span>
-               
+
                     <p class="mb-0">
                       {{ $plan->description }}
                     </p>
@@ -551,9 +551,9 @@ $dark_mode = $setting['cust_darklayout'];
                       <li>
                         <span class="theme-avtar">
                           <i class="text-primary ti ti-circle-plus"></i></span>
-                          
+
                         {{ ($plan->trial_days < 0)?__('Unlimited'):$plan->trial_days }} {{__('Trial Days')}}
-                      
+
                       </li>
                         @endif
                           <li>
@@ -579,14 +579,14 @@ $dark_mode = $setting['cust_darklayout'];
                     </ul>
                     <div class="d-grid text-center">
                       @if(env('SIGNUP_BUTTON') == 'on')
-                      <a href="{{ route('register') }}" 
+                      <a href="{{ route('register') }}"
                         class="btn mb-3 {{$price_btn}} d-flex justify-content-center align-items-center mx-sm-5"
                       >
                         Start with Standard plan
                         <i class="ti ti-chevron-right ms-2"></i>
                       </a>
                       @else
-                      <a href="{{ route('login') }}" 
+                      <a href="{{ route('login') }}"
                         class="btn mb-3 {{$price_btn}} d-flex justify-content-center align-items-center mx-sm-5"
                       >
                         Start with Standard plan
@@ -598,7 +598,7 @@ $dark_mode = $setting['cust_darklayout'];
                 </div>
               </div>
               @endforeach
-              
+
             </div>
           </div>
         </section>
@@ -741,7 +741,7 @@ $dark_mode = $setting['cust_darklayout'];
               class="mb-sm-4 f-w-600 wow animate__fadeInLeft"
               data-wow-delay="0.2s"
             >
-              Taskly
+              PMS
             </h1>
             <h2 class="mb-sm-4 wow animate__fadeInLeft" data-wow-delay="0.4s">
              Project Management<br/>Tool
@@ -836,7 +836,7 @@ $dark_mode = $setting['cust_darklayout'];
             <img src="{{$logo.$company_logo}}" alt="logo" />
           </div>
           <div class="col-lg-6 col-sm-12 text-end">
-           
+
             <p class="text-body"> {{env('FOOTER_TEXT')}}</p>
           </div>
         </div>
@@ -874,9 +874,9 @@ $dark_mode = $setting['cust_darklayout'];
         target: "#navbar-example",
       });
     </script>
-    @if($meta_setting['enable_cookie']=='on') 
+    @if($meta_setting['enable_cookie']=='on')
     @include('layouts.cookie_consent')
-    @endif 
+    @endif
   </body>
 </html>
   <style type="text/css">

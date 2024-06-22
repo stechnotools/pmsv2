@@ -13,7 +13,7 @@ $setting = \App\Models\Utility::getAdminPaymentSettings();
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        @yield('page-title') - {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'Taskly') }}
+        @yield('page-title') - {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'PMS') }}
     </title>
 
     <link rel="shortcut icon" href="{{asset($logo.'favicon.png' . '?' . time())}}">

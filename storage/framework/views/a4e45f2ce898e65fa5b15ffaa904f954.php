@@ -191,17 +191,17 @@
         $company_logo = App\Models\Utility::get_logo();
     ?>
     <div class="custom-login">
-        <div class="login-bg-img">
-            <img src="<?php echo e(asset('assets/img/' . $color . '.svg')); ?>" class="login-bg-1">
-            <img src="<?php echo e(asset('assets/img/user2.svg')); ?>" class="login-bg-2">
-        </div>
-        <div class="bg-login bg-primary"></div>
+        
         <div class="custom-login-inner">
             
 
             <main class="custom-wrapper">
                 <div class="custom-row">
+
                     <div class="card">
+                        <a class="text-center my-sm-4" href="#">
+                            <img src="<?php echo e(asset($logo . $company_logo)); ?>" class="" style="width:200px;" alt="logo">
+                        </a>
                         <?php echo $__env->yieldContent('content'); ?>
                     </div>
                 </div>

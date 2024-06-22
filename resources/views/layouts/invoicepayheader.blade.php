@@ -1,8 +1,8 @@
-  
+
 @php
 $setting = App\Models\Utility::getcompanySettings($currentWorkspace->id);
 $color = $setting->theme_color;
-$dark_mode = $setting->cust_darklayout; 
+$dark_mode = $setting->cust_darklayout;
 $SITE_RTL = $setting->site_rtl;
 $cust_theme_bg = $setting->cust_theme_bg;
 
@@ -12,7 +12,7 @@ $meta_images = \App\Models\Utility::get_file('uploads/logo/');
 
 if($color == '' || $color == null){
     $settings = App\Models\Utility::getAdminPaymentSettings();
-    $color = $settings['color'];           
+    $color = $settings['color'];
 }
 
 if($dark_mode == '' || $dark_mode == null){
@@ -44,9 +44,9 @@ $logo_path = \App\Models\Utility::get_file('/logo/');
 
     <title>
         @if(trim($__env->yieldContent('page-title')))
-            {{ config('app.name', 'Taskly') }} -@yield('page-title')
+            {{ config('app.name', 'PMS') }} -@yield('page-title')
         @else
-             {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'Taskly') }} -@yield('page-title')
+             {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'PMS') }} -@yield('page-title')
         @endif
     </title>
 
@@ -101,12 +101,12 @@ $logo_path = \App\Models\Utility::get_file('/logo/');
         @media (max-width: 1024px) {
             .dash-container {
                 margin-right: 0;
-            }   
+            }
         }
         @media (min-width: 1025px) {
             .dash-container {
                 margin-right: 255px;
-            }   
+            }
         }
     </style>
 </head>
@@ -180,7 +180,7 @@ $logo_path = \App\Models\Utility::get_file('/logo/');
     </div>
 
  </div>
- </div> 
+ </div>
  <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -347,9 +347,9 @@ $logo_path = \App\Models\Utility::get_file('/logo/');
 </script>
 
 
-@if($meta_setting['enable_cookie']=='on') 
+@if($meta_setting['enable_cookie']=='on')
     @include('layouts.cookie_consent')
-@endif 
+@endif
 
 @if(isset($currentWorkspace) && $currentWorkspace)
     <script src="{{ asset('assets/custom/js/jquery.easy-autocomplete.min.js') }}"></script>

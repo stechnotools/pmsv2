@@ -211,11 +211,11 @@
         $company_logo = App\Models\Utility::get_logo();
     @endphp
     <div class="custom-login">
-        <div class="login-bg-img">
+        {{--<div class="login-bg-img">
             <img src="{{ asset('assets/img/' . $color . '.svg') }}" class="login-bg-1">
             <img src="{{ asset('assets/img/user2.svg') }}" class="login-bg-2">
         </div>
-        <div class="bg-login bg-primary"></div>
+        <div class="bg-login bg-primary"></div>--}}
         <div class="custom-login-inner">
             {{--<header class="dash-header">
                 <nav class="navbar navbar-expand-md default">
@@ -243,7 +243,11 @@
 
             <main class="custom-wrapper">
                 <div class="custom-row">
+
                     <div class="card">
+                        <a class="text-center my-sm-4" href="#">
+                            <img src="{{ asset($logo . $company_logo) }}" class="" style="width:200px;" alt="logo">
+                        </a>
                         @yield('content')
                     </div>
                 </div>

@@ -2,9 +2,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@if(trim($__env->yieldContent('page-title')) && Auth::user()->type == 'admin')
-            {{ config('app.name', 'Taskly') }} -@yield('page-title') 
+            {{ config('app.name', 'PMS') }} -@yield('page-title')
         @else
-             {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'Taskly') }} -@yield('page-title')
+             {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'PMS') }} -@yield('page-title')
         @endif</title>
     <link rel="icon" href="{{asset(Storage::url('logo/favicon.png'))}}" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -22,8 +22,8 @@
         merchant: 'Paymentwall',
         product:  '{{App\Models\Utility::invoiceNumberFormat($invoice->invoice_id)}}',
         pay_button: 'Pay',
-        show_zip: true, // show zip code 
-        show_cardholder: true // show card holder name 
+        show_zip: true, // show zip code
+        show_cardholder: true // show card holder name
       }
     });
 
@@ -40,5 +40,5 @@
           window.location.href ='{{route("invoice.callback.error",[2,"_slug",$invoice_id])}}'.replace('_slug', errors.slug);
         }
     });
-    
+
   </script>
