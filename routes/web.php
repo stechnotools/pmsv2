@@ -670,6 +670,13 @@ Route::group(['middleware' => ['verified']], function () {
   Route::post('/{slug}/taxes/{id}/update', [WorkspaceController::class, 'update_tax'])->name('tax.update')->middleware(['auth', 'XSS']);
   Route::delete('/{slug}/taxes/{id}', [WorkspaceController::class, 'destroy_tax'])->name('tax.destroy')->middleware(['auth', 'XSS']);
 
+  Route::get('/{slug}/designations', [WorkspaceController::class, 'create_designation'])->name('designation.create')->middleware(['auth', 'XSS']);
+  Route::post('/{slug}/designations', [WorkspaceController::class, 'store_designation'])->name('designation.store')->middleware(['auth', 'XSS']);
+  Route::get('/{slug}/designations/{id}/edit', [WorkspaceController::class, 'edit_designation'])->name('designation.edit')->middleware(['auth', 'XSS']);
+  Route::post('/{slug}/designations/{id}/update', [WorkspaceController::class, 'update_designation'])->name('designation.update')->middleware(['auth', 'XSS']);
+  Route::delete('/{slug}/designations/{id}', [WorkspaceController::class, 'destroy_designation'])->name('designation.destroy')->middleware(['auth', 'XSS']);
+
+
   Route::post('/{slug}/stages', [WorkspaceController::class, 'store_stages'])->name('stages.store')->middleware(['auth', 'XSS']);
   Route::post('/{slug}/bug/stages', [WorkspaceController::class, 'store_bug_stages'])->name('bug.stages.store')->middleware(['auth', 'XSS']);
 

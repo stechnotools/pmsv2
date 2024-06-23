@@ -7,7 +7,16 @@
              {{ Form::label('username', __('Name'), ['class' => 'col-form-label']) }}
              {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => __('Please enter name')]) }}
          </div>
-         <div class="col-md-12 form-group">
+         <div class="col-md-12 form-group invite_user_div">
+            {{ Form::label('designation', __('Designation'), ['class' => 'col-form-label']) }}
+            <select class="form-control form-control-light select2" name="designation_id" id="designation_id" required>
+                <option value="">{{__('Select Designation')}}</option>
+                @foreach($designations as $designation)
+                    <option value="{{$designation->id}}">{{$designation->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-12 form-group">
              {{ Form::label('invite_email', __('Email'), ['class' => 'col-form-label']) }}
              {{ Form::text('invite_email', null, ['class' => 'form-control', 'placeholder' => __('Enter email address')]) }}
          </div>
@@ -104,6 +113,7 @@
              var useremail = $('#invite_email').val();
              var username = $('#username').val();
              var userpassword = $('#userpassword').val();
+             var designation_id = $('#designation_id').val();
 
              $('.username-error-message').remove();
              if (username == '') {
@@ -146,6 +156,7 @@
                      data: {
                          'useremail': useremail,
                          'username': username,
+                         'designation_id': designation_id,
                          'userpassword': userpassword,
                      },
                      success: function(data) {

@@ -43,7 +43,7 @@ use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use App\Models\LoginDetail;
 use App\Models\Client;
-
+use App\Models\Designation;
 
 class UserController extends Controller
 {
@@ -120,7 +120,7 @@ class UserController extends Controller
                         $user->currant_workspace =  $getFirstWorkspace->workspace_id;
                         $user->save();
                     }
-                  
+
                 }
 
                 if ($request->is_disable == 1) {
@@ -480,8 +480,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+        $designations=Designation::where('workspace_id',$currentWorkspace->id)->get();
 
-        return view('users.edit', compact('currentWorkspace', 'user'));
+        return view('users.edit', compact('currentWorkspace', 'user','designations'));
     }
 
     public function deleteAvatar()
@@ -525,6 +526,7 @@ class UserController extends Controller
 
         $objUser->name = $request->name;
         $objUser->email = $request->email;
+        $objUser->designation_id = $request->designation_id;
         $dir = 'avatars/';
         $logo = Utility::get_file('avatars/');
         if ($request->has('avatar')) {
@@ -717,8 +719,8 @@ class UserController extends Controller
     public function invite($slug)
     {
         $currentWorkspace = Utility::getWorkspaceBySlug($slug);
-
-        return view('users.invite', compact('currentWorkspace'));
+        $designations=Designation::where('workspace_id',$currentWorkspace->id)->get();
+        return view('users.invite', compact('currentWorkspace','designations'));
     }
 
     public function inviteUser($slug, Request $request)
@@ -728,6 +730,7 @@ class UserController extends Controller
         $post = $request->all();
         $name = $post['username'];
         $email = $post['useremail'];
+        $designation_id = $post['designation_id'];
         $password = $post['userpassword'];
 
         $registerUsers = User::where('email', $email)->first();
@@ -740,6 +743,7 @@ class UserController extends Controller
             $arrUser = [];
             $arrUser['name'] = $name;
             $arrUser['email'] = $email;
+            $arrUser['designation_id'] = $designation_id;
             $arrUser['email_verified_at'] = date('Y-m-d H:i:s');
             $arrUser['password'] = Hash::make($password);
             $arrUser['currant_workspace'] = $currentWorkspace->id;

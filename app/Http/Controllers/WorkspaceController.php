@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Stage;
 use App\Models\Task;
 use App\Models\Tax;
+use App\Models\Designation;
 // use Artisan;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\UserProject;
@@ -39,7 +40,7 @@ class WorkspaceController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->with('error', $validator->errors()->first());
         }
-        
+
         $objWorkspace = Workspace::create(
             [
                 'created_by' => $objUser->id,
@@ -65,7 +66,7 @@ class WorkspaceController extends Controller
 
 
     //    public function destroy($workspaceID)
-    // { 
+    // {
     //     $objUser   = Auth::user();
     //     $workspace = Workspace::find($workspaceID);
     //     $all_workspaces = Workspace::get();
@@ -77,7 +78,7 @@ class WorkspaceController extends Controller
     //       if(count($all_workspaces) > 1)
     //        {
     //         UserWorkspace::where('workspace_id', '=', $workspaceID)->delete();
-    //         Stage::where('workspace_id', '=', $workspaceID)->delete(); 
+    //         Stage::where('workspace_id', '=', $workspaceID)->delete();
     //         $workspace->delete();
     //         $work_space = Workspace::first();
 
@@ -104,7 +105,7 @@ class WorkspaceController extends Controller
     //     }
     // }
 
-    // Old 
+    // Old
     // public function destroy($workspaceID)
     // {
     //     $objUser   = Auth::user();
@@ -162,15 +163,15 @@ class WorkspaceController extends Controller
         $workspace = Workspace::find($workspaceID);
         $all_workspaces = Workspace::where('created_by', '=', Auth::user()->id)->get();
         if ($workspace->created_by == $objUser->id) {
-            
+
             if (count($all_workspaces) > 1) {
-                
+
                 $currentWorkspaceUsers = UserWorkspace::where([
                     ['workspace_id', '=', $workspaceID],
                     ['permission', '=', 'Member'],
                     ])
                     ->get();
-    
+
                 if (count($currentWorkspaceUsers) >= 1) {
                     return redirect()->back()->with('error', __('Please Remove the Users Before Delete the Workspace !!!'));
                 } else {
@@ -204,7 +205,7 @@ class WorkspaceController extends Controller
 
 
     //     if (count($all_workspaces) > 1) {
-            
+
     //         $work_space = Workspace::first();
 
     //         $user_Project = Project::where('workspace', '=', $work_space->id)->get();
@@ -303,13 +304,13 @@ class WorkspaceController extends Controller
 
         //     Artisan::call('config:cache');
         //     Artisan::call('config:clear');
-            
+
         //     return redirect()->back()->with('success', __('Language Change Successfully!'));
         // } else {
         //     return redirect()->back()->with('error', __('Something is wrong'));
         // }
         $user = \Auth::user();
-        $user->lang = $lang; 
+        $user->lang = $lang;
         $user->save();
         return redirect()->back()->with('success', __('Language Change Successfully!'));
     }
@@ -317,7 +318,7 @@ class WorkspaceController extends Controller
     public function changeLangcopylink($lang)
     {
         \Cookie::queue('LANGUAGE', $lang, 120);
-        
+
         return redirect()->back()->with('success', __('Language Change Successfully!'));
     }
 
@@ -325,7 +326,7 @@ class WorkspaceController extends Controller
     {
 
         $user = \Auth::user();
-        $user->lang = $lang; 
+        $user->lang = $lang;
         $user->save();
         return redirect()->back()->with('success', __('Language Change Successfully!'));
     }
@@ -333,7 +334,7 @@ class WorkspaceController extends Controller
     {
 
         $user = \Auth::user();
-        $user->lang = $lang; 
+        $user->lang = $lang;
         $user->save();
 
         return redirect()->back()->with('success', __('Language Change Successfully!'));
@@ -450,7 +451,7 @@ class WorkspaceController extends Controller
             );
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
-            
+
             return redirect()->back()->with('error', $messages->first());
         }
 
@@ -534,6 +535,7 @@ class WorkspaceController extends Controller
 
         if ($currentWorkspace && $currentWorkspace->created_by == $objUser->id) {
             $taxes     = Tax::where('workspace_id', '=', $currentWorkspace->id)->get();
+            $designations     = Designation::where('workspace_id', '=', $currentWorkspace->id)->get();
             $stages    = Stage::where('workspace_id', '=', $currentWorkspace->id)->orderBy('order')->get();
             $bugStages = BugStage::where('workspace_id', '=', $currentWorkspace->id)->orderBy('order')->get();
 
@@ -573,7 +575,7 @@ class WorkspaceController extends Controller
 
             $payment_detail = Utility::getPaymentSetting($currentWorkspace->id);
 
-            return view('users.setting', compact('currentWorkspace', 'EmailTemplates', 'taxes', 'stages', 'bugStages', 'colors', 'payment_detail'));
+            return view('users.setting', compact('currentWorkspace', 'EmailTemplates', 'taxes','designations', 'stages', 'bugStages', 'colors', 'payment_detail'));
         } else {
             return redirect()->route('home')->with('error', __("You can't access workspace settings!"));
         }
@@ -649,7 +651,7 @@ class WorkspaceController extends Controller
                 $validate['payfast_signature'] = 'required|string';
                 $validate['payfast_mode'] = 'required|string';
             }
-            
+
             if (isset($request->is_iyzipay_enabled) && $request->is_iyzipay_enabled == 'on') {
                 $validate['iyzipay_api_key'] = 'required|string';
                 $validate['iyzipay_secret_key'] = 'required|string';
@@ -710,7 +712,7 @@ class WorkspaceController extends Controller
             if ($request->has('interval_time')) {
                 $validate['interval_time'] = 'required';
             }
-            
+
             if ($request->has('zoom_account_id')) {
                 $validate['zoom_account_id'] = 'required';
             }
@@ -1103,7 +1105,7 @@ class WorkspaceController extends Controller
         return redirect()->back()->with('success', __('Zoom Metting Saved Successfully.'));
 
     }
-    
+
     public function create_tax($slug)
     {
         $objUser          = Auth::user();
@@ -1190,6 +1192,70 @@ class WorkspaceController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
+
+    public function create_designation($slug){
+        $objUser          = Auth::user();
+        $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+        if ($currentWorkspace->created_by == $objUser->id) {
+            return view('users.create_designation', compact('currentWorkspace'));
+        }
+    }
+
+    public function edit_designation($slug, $id){
+        $objUser          = Auth::user();
+        $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+        if ($currentWorkspace->created_by == $objUser->id) {
+            $designation = Designation::find($id);
+            return view('users.edit_designation', compact('currentWorkspace', 'designation'));
+        }
+    }
+
+    public function destroy_designation($slug, $id){
+        $objUser          = Auth::user();
+        $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+        if ($currentWorkspace->created_by == $objUser->id) {
+            $designation = Designation::find($id);
+            $designation->delete();
+            return redirect()->back()->with('success', __('Designation Delete Successfully.!'));
+        } else {
+            return redirect()->back()->with('error', __('Permission denied.'));
+        }
+    }
+
+    public function store_designation($slug, Request $request){
+        $objUser          = Auth::user();
+        $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+        if ($currentWorkspace->created_by == $objUser->id) {
+            $request->validate([
+                'name' => 'required|max:255',
+            ]);
+            $designation = new Designation();
+            $designation->name = $request->name;
+            $designation->workspace_id = $currentWorkspace->id;
+            $designation->save();
+            return redirect()->back()->with('success', __('Designation Save Successfully.!'));
+        } else {
+            return redirect()->back()->with('error', __('Permission denied.'));
+        }
+    }
+
+
+    public function update_designation($slug, Request $request, $id){
+        $objUser          = Auth::user();
+        $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+        if ($currentWorkspace->created_by == $objUser->id) {
+            $request->validate([
+                'name' => 'required|max:255',
+            ]);
+            $designation = Designation::find($id);
+            $designation->name = $request->name;
+            $designation->save();
+            return redirect()->back()->with('success', __('Designation Update Successfully.!'));
+        } else {
+            return redirect()->back()->with('error', __('Permission denied.'));
+        }
+    }
+
 
     public function store_stages($slug, Request $request)
     {
@@ -1507,7 +1573,7 @@ class WorkspaceController extends Controller
 
             foreach ($post as $key => $data) {
                 \DB::insert(
-                    'INSERT INTO payment_settings (`value`, `name`,`created_by`,`created_at`,`updated_at`) 
+                    'INSERT INTO payment_settings (`value`, `name`,`created_by`,`created_at`,`updated_at`)
                     values (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`), `updated_at` = VALUES(`updated_at`) ',
                     [
                         $data,
@@ -1520,10 +1586,10 @@ class WorkspaceController extends Controller
             }
 
             return redirect()->back()->with('success', __('Comapny Setting updated successfully'));
-           
+
         } else {
             return redirect()->back()->with('error', __('Something is wrong'));
         }
     }
-    
+
 }

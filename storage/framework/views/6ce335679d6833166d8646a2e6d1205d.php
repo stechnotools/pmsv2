@@ -7,7 +7,7 @@
       <span class="text-muted" style="text-align: left;">
         &copy; <?php echo e(date('Y')); ?>
 
-        <?php echo e(Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'Taskly')); ?>
+        <?php echo e(Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'PMS')); ?>
 
       </span>
     </div>

@@ -8,3 +8,4 @@ class Tax extends Model
 {
     protected $fillable = ['name','rate'];
 }
+

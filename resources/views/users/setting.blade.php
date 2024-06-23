@@ -20,20 +20,20 @@
         $SITE_RTL = $setting->site_rtl;
         $cust_theme_bg = $setting->cust_theme_bg;
     }
-    
+
     if ($color == '' || $color == null) {
         $settings = App\Models\Utility::getAdminPaymentSettings();
         $color = $settings['color'];
     }
-    
+
     if ($dark_mode == '' || $dark_mode == null) {
         $dark_mode = $settings['cust_darklayout'];
     }
-    
+
     if ($cust_theme_bg == '' || $dark_mode == null) {
         $cust_theme_bg = $settings['cust_theme_bg'];
     }
-    
+
     if ($SITE_RTL == '' || $SITE_RTL == null) {
         $SITE_RTL = env('SITE_RTL');
     }
@@ -79,19 +79,23 @@
                             <a href="#bug-stage-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Bug Stage Settings') }} <div
                                     class="float-end"><i class="ti ti-chevron-right"></i></div></a>
-                            <a href="#tax-settings"
+                            {{--<a href="#tax-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Tax Settings') }} <div
-                                    class="float-end"><i class="ti ti-chevron-right"></i></div></a>
+                                    class="float-end"><i class="ti ti-chevron-right"></i></div></a>--}}
+                            <a href="#designation-settings"
+                            class="list-group-item list-group-item-action border-0">{{ __('Designation Settings') }} <div
+                            class="float-end"><i class="ti ti-chevron-right"></i></div></a>
+
                             <a href="#company-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Company Settings') }} <div
                                     class="float-end"><i class="ti ti-chevron-right"></i></div></a>
-                            <a href="#payment-settings"
+                            {{--<a href="#payment-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Payment Settings') }} <div
                                     class="float-end"><i class="ti ti-chevron-right"></i></div></a>
 
                             <a href="#invoice-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Invoice Settings') }} <div
-                                    class="float-end"><i class="ti ti-chevron-right"></i></div></a>
+                                    class="float-end"><i class="ti ti-chevron-right"></i></div></a>--}}
 
                             <a href="#email-notification-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Email Notification Settings') }}
@@ -102,18 +106,18 @@
                                 class="list-group-item list-group-item-action border-0">{{ __('Time Tracker Settings') }}
                                 <div class="float-end"><i class="ti ti-chevron-right"></i></div></a>
 
-                            <a href="#zoom-meeting-settings"
+                            {{--<a href="#zoom-meeting-settings"
                                 class="list-group-item list-group-item-action border-0">{{ __('Zoom Meeting Settings') }}
                                 <div class="float-end"><i class="ti ti-chevron-right"></i></div>
-                            </a>
+                            </a>--}}
                             @if (Auth::user()->type == 'user')
-                                <a href="#slack-settings"
+                                {{--<a href="#slack-settings"
                                     class="list-group-item list-group-item-action border-0">{{ __('Slack Settings') }}<div
                                         class="float-end"><i class="ti ti-chevron-right"></i></div></a>
                                 <a href="#telegram-settings"
                                     class="list-group-item list-group-item-action border-0">{{ __('Telegram Settings') }}
                                     <div class="float-end"><i class="ti ti-chevron-right"></i></div>
-                                </a>
+                                </a>--}}
                                 <a href="#google-calender"
                                    class="list-group-item list-group-item-action border-0">{{ __('Google Calender') }}
                                 <div class="float-end"><i class="ti ti-chevron-right"></i></div>
@@ -122,7 +126,7 @@
                                 <a href="#webhook-settings"
                                    class="list-group-item list-group-item-action border-0">{{ __('Webhook Settings') }}
                                 <div class="float-end"><i class="ti ti-chevron-right"></i></div></a>
-                                
+
                                 <a href="#email-settings"
                                 class="list-group-item list-group-item-action dash-link border-0">{{ __('Email Settings') }}
                                 <div class="float-end"><i class="ti ti-chevron-right"></i></div></a>
@@ -285,7 +289,7 @@
                                                                     class="me-2"></i>{{ __('Primary color settings') }}
                                                             </h6>
                                                             <hr class="my-2" />
-                                                            
+
                                                             <div class="theme-color themes-color">
                                                                 <input type="hidden" name="color" id="color_value" value="{{ $color }}">
                                                                 <a href="#!" class="{{($color == 'theme-1') ? 'active_color' : ''}}" data-value="theme-1" onclick="check_theme('theme-1')"></a>
@@ -587,6 +591,75 @@
                             </div>
                         </div>
                     </div>
+                    <div id="designation-settings" class="">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-11">
+                                                <h5 class="">
+                                                    {{ __('Designation Settings') }}
+                                                </h5>
+                                            </div>
+                                            <div class="text-end  col-auto">
+                                                <button class="btn-submit btn btn-sm btn-primary" type="button"
+                                                    data-ajax-popup="true" data-title="{{ __('Add Designation') }}"
+                                                    data-url="{{ route('designation.create', $currentWorkspace->slug) }}"
+                                                    data-toggle="tooltip" title="{{ __('Add Designation') }}">
+                                                    <i class="ti ti-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+
+                                            <table id="" class="table table-bordered px-2">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{ __('Name') }}</th>
+                                                        <th width="200px" class="text-right">{{ __('Action') }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($designations as $designation)
+                                                        <tr>
+                                                            <td>{{ $designation->name }}</td>
+                                                             <td class="text-right">
+                                                                <a href="#"
+                                                                    class="action-btn btn-info  btn btn-sm d-inline-flex align-items-center"
+                                                                    data-ajax-popup="true"
+                                                                    data-title="{{ __('Edit Designation') }}"
+                                                                    data-url="{{ route('designation.edit', [$currentWorkspace->slug, $designation->id]) }}"
+                                                                    data-toggle="tooltip" title="{{ __('Edit Designation') }}">
+                                                                    <i class="ti ti-pencil text-white"></i>
+                                                                </a>
+                                                                <a href="#"
+                                                                    class="action-btn btn-danger  btn btn-sm d-inline-flex align-items-center bs-pass-para"
+                                                                    data-confirm="{{ __('Are You Sure?') }}"
+                                                                    data-text="{{ __('This action can not be undone. Do you want to continue?') }}"
+                                                                    data-confirm-yes="delete-form-{{ $designation->id }}"data-toggle="tooltip"
+                                                                    title="{{ __('Delete') }}">
+                                                                    <i class="ti ti-trash text-white"></i>
+                                                                </a>
+                                                                <form id="delete-form-{{ $designation->id }}"
+                                                                    action="{{ route('designation.destroy', [$currentWorkspace->slug, $designation->id]) }}"
+                                                                    method="POST" style="display: none;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div id="company-settings" class="tab-pane">
                         <div class="row justify-content-center">
@@ -693,7 +766,7 @@
                                                 </div>
 
                                             </div>
-                                            
+
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="accordion accordion-flush setting-accordion" id="payment-gateways">
@@ -788,7 +861,7 @@
                                                                 <button class="accordion-button collapsed" type="button"  data-bs-toggle="collapse"
                                                                 data-bs-target="#collapsetwo" aria-expanded="false"
                                                                 aria-controls="collapsetwo">
-                                                                    <span class="d-flex align-items-center"> 
+                                                                    <span class="d-flex align-items-center">
                                                                         {{ __('Paypal') }}
                                                                     </span>
                                                                     <div class="d-flex align-items-center">
@@ -810,7 +883,7 @@
                                                                 aria-labelledby="paypal"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
-                                                                   
+
                                                                     <div
                                                                         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
                                                                         <div class="row pt-2">
@@ -1098,7 +1171,7 @@
                                                                 aria-labelledby="mercado"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
-                                                                    
+
                                                                     <div
                                                                         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
                                                                         <div class="row pt-2">
@@ -1197,7 +1270,7 @@
                                                                 aria-labelledby="Paytm"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
-                                                                    
+
                                                                     <div
                                                                         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-4">
                                                                         <div class="row pt-2">
@@ -1366,7 +1439,7 @@
                                                             <h2 class="accordion-header" id="Skrill">
                                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapset9"
                                                                 aria-expanded="false" aria-controls="collapset9">
-                                                                    <span class="d-flex align-items-center"> 
+                                                                    <span class="d-flex align-items-center">
                                                                         {{ __('Skrill') }}
                                                                     </span>
                                                                     <div class="d-flex align-items-center">
@@ -1535,7 +1608,7 @@
                                                                 aria-labelledby="Paymentwall"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
-                                                                    
+
                                                                     <div class="row mt-2">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
@@ -2066,7 +2139,7 @@
                                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                                                 data-bs-target="#collapse102" aria-expanded="false"
                                                                 aria-controls="collapse102">
-                                                                    <span class="d-flex align-items-center"> 
+                                                                    <span class="d-flex align-items-center">
                                                                         {{ __('Benefit') }}
                                                                     </span>
                                                                     <div class="d-flex align-items-center">
@@ -2209,7 +2282,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <!-- Aamarpay -->
                                                         <div class="accordion-item card">
                                                             <h2 class="accordion-header" id="headingTwenty-One">
@@ -2337,7 +2410,7 @@
                                                                     <span class="d-flex align-items-center">
                                                                         {{ __('PayTR') }}
                                                                     </span>
-                                                                    
+
                                                                     <div class="d-flex align-items-center">
                                                                         <span class="me-2">Enable:</span>
                                                                         <div
@@ -2411,7 +2484,7 @@
                                                                     <span class="d-flex align-items-center">
                                                                         {{ __('Midtrans') }}
                                                                     </span>
-                                                                    
+
                                                                     <div class="d-flex align-items-center">
                                                                         <span class="me-2">Enable:</span>
                                                                         <div
@@ -2491,7 +2564,7 @@
                                                                     <span class="d-flex align-items-center">
                                                                         {{ __('Xendit') }}
                                                                     </span>
-                                                                    
+
                                                                     <div class="d-flex align-items-center">
                                                                         <span class="me-2">Enable:</span>
                                                                         <div
@@ -2553,7 +2626,7 @@
                                                                     <span class="d-flex align-items-center">
                                                                         {{ __('YooKassa') }}
                                                                     </span>
-                                                                    
+
                                                                     <div class="d-flex align-items-center">
                                                                         <span class="me-2">Enable:</span>
                                                                         <div
@@ -2604,7 +2677,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2791,7 +2864,7 @@
                                                 </div>
                                             </div>
                                             @endforeach
-                                            
+
                                             <div class="text-end py-3">
                                                 <button type="submit"
                                                 class="btn-submit btn btn-primary">{{ __('Save Changes') }}</button>
@@ -3038,7 +3111,7 @@
                             {{ Form::close() }}
                         </div>
                     @endif
-                    
+
                     @if (Auth::user()->type == 'user')
                         <div class="" id="telegram-settings">
                             {{ Form::open(['route' => ['workspace.settings.telegram', $currentWorkspace->slug], 'method' => 'post', 'class' => 'd-contents']) }}
@@ -3198,7 +3271,7 @@
                                         <div class="col switch-width">
                                             <div class="form-group ml-2 mr-3 ">
                                                 <div class="custom-control custom-switch">
-                                                    
+
                                                     <input type="checkbox" data-toggle="switchbutton"
                                                         data-onstyle="primary" class="" name="is_googlecalendar_enabled"
                                                         id="is_googlecalendar_enabled"
