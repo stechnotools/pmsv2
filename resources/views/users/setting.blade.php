@@ -520,7 +520,7 @@
                         </div>
                     </div>
 
-                    <div id="tax-settings" class="">
+                    {{--<div id="tax-settings" class="">
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="card">
@@ -590,7 +590,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                     <div id="designation-settings" class="">
                         <div class="row justify-content-center">
                             <div class="col-md-12">
@@ -728,7 +728,7 @@
                     </div>
 
 
-                    <div id="payment-settings" class="faq">
+                    {{--<div id="payment-settings" class="faq">
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="card">
@@ -2690,9 +2690,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
 
-                    <div id="invoice-settings" class="tab-pane">
+                    {{--<div id="invoice-settings" class="tab-pane">
                         <div class="">
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
@@ -2708,7 +2708,7 @@
                                                     <a  data-size="lg" data-ajax-popup-over="true" class="btn btn-sm text-white btn-primary" data-url="{{ route('generate',['invoice footer']) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Generate with AI') }}" data-title="{{ __('Generate Invoice Footer Title & Notes') }}">
                                                         <i class="fas fa-robot px-1"></i>{{ __('Generate with AI') }}</a>
                                                 </div> --}}
-                                                @endif
+                                                {{--@endif
                                             </div>
                                         </div>
                                         <div class="card-body p-4">
@@ -2830,7 +2830,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
 
                     <div class="" id="email-notification-settings">
                         <div class="card">
@@ -2916,7 +2916,7 @@
                         </div>
                     </div>
 
-                    <div id="zoom-meeting-settings" class="">
+                    {{--<div id="zoom-meeting-settings" class="">
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="card">
@@ -2967,9 +2967,9 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div>--}}
 
-                    @if (Auth::user()->type == 'user')
+                    {{--@if (Auth::user()->type == 'user')
                         <div class="" id="slack-settings">
                             {{ Form::open(['route' => ['workspace.settings.Slack', $currentWorkspace->slug], 'method' => 'post', 'class' => 'd-contents']) }}
                             <div class="row justify-content-center">
@@ -3110,9 +3110,9 @@
                             </div>
                             {{ Form::close() }}
                         </div>
-                    @endif
+                    @endif--}}
 
-                    @if (Auth::user()->type == 'user')
+                    {{--@if (Auth::user()->type == 'user')
                         <div class="" id="telegram-settings">
                             {{ Form::open(['route' => ['workspace.settings.telegram', $currentWorkspace->slug], 'method' => 'post', 'class' => 'd-contents']) }}
                             <div class="row justify-content-center">
@@ -3256,7 +3256,7 @@
                             </div>
                             {{ Form::close() }}
                         </div>
-                    @endif
+                    @endif--}}
 
                     @if(Auth::user()->type == 'user')
                     <div class="" id="google-calender">
