@@ -1,10 +1,10 @@
 @php
-$setting = App\Models\Utility::getAdminPaymentSetting();
+$setting = App\Models\Utility::getAdminPaymentSettings();
 if ($setting['color']) {
     $color = $setting['color'];
 }
 else{
-  $color = 'theme-3';  
+  $color = 'theme-3';
 }
 @endphp
 <form class="" method="post" action="{{ route('notes.update',[$currentWorkspace->slug,$note->id]) }}">
@@ -63,7 +63,7 @@ else{
             <button type="button" class="btn  btn-light" data-bs-dismiss="modal">{{ __('Close')}}</button>
             <input type="submit" value="{{ __('Save Changes')}}" class="btn  btn-primary">
         </div>
- 
+
 </form>
 <script>
     $(document).ready(function() {
@@ -71,7 +71,7 @@ else{
     });
 </script>
 <script type="text/javascript">
-    
+
     if ($(".multi-select").length > 0) {
             $( $(".multi-select") ).each(function( index,element ) {
                 var id = $(element).attr('id');
@@ -91,7 +91,7 @@ else{
     background-color: #51459d !important;
 }
 .selectgroup-button {
-    
+
     border-color: #51459d !important;
     }
 </style>
@@ -103,7 +103,7 @@ else{
     background-color: #1f3996 !important;
 }
 .selectgroup-button {
-    
+
     border-color: #1f3996 !important;
     }
 </style>
@@ -114,7 +114,7 @@ else{
     background-color: #6fd943 !important;
 }
 .selectgroup-button {
-    
+
     border-color: #6fd943 !important;
     }
 </style>
@@ -125,7 +125,7 @@ else{
     background-color: #584ed2 !important;
 }
 .selectgroup-button {
-    
+
     border-color: #584ed2 !important;
     }
 </style>
